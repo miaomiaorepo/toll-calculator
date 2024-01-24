@@ -1,0 +1,581 @@
+/* screen - desktop-2 */
+
+.desktop-2 {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+  padding: 35px 0;
+  width: 1280px;
+}
+
+.desktop-2 .result-section {
+  gap: 19px;
+  margin-right: 121.0px;
+  min-height: 106px;
+  width: 909px;
+}
+
+.desktop-2 .flex-row {
+  align-items: flex-start;
+  display: flex;
+  height: 45px;
+  margin-left: 1px;
+  margin-top: -1px;
+  min-width: 783px;
+}
+
+.desktop-2 .title {
+  letter-spacing: 0;
+  line-height: normal;
+  min-height: 41px;
+  min-width: 207px;
+  white-space: nowrap;
+}
+
+.desktop-2 .origin-input {
+  align-items: flex-start;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 20px;
+  min-height: 44px;
+  width: 514px;
+}
+
+.desktop-2 .flex-row-1 {
+  align-items: flex-start;
+  display: flex;
+  height: 42px;
+  margin-top: -1px;
+  min-width: 512px;
+}
+
+.desktop-2 .search {
+  align-self: flex-end;
+  height: 30px;
+  width: 30px;
+}
+
+.desktop-2 .x1954-commerce-st-dallastx {
+  background-color: transparent;
+  border: 0;
+  color: var(--navy-blue);
+  font-family: var(--font-family-georgia-regular);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  height: 41px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+  white-space: nowrap;
+  width: 482px;
+}
+
+.desktop-2 .x1954-commerce-st-dallastx::placeholder {
+  color: #197bc199;
+}
+
+.desktop-2 .line-1 {
+  width: 514px;
+}
+
+.desktop-2 .to {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-left: 10px;
+  min-height: 41px;
+  white-space: nowrap;
+}
+
+.desktop-2 .flex-row-2 {
+  align-items: flex-start;
+  display: flex;
+  gap: 5px;
+  height: 43px;
+  min-width: 909px;
+}
+
+.desktop-2 .destination-input {
+  align-items: flex-start;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  min-height: 41px;
+  width: 540px;
+}
+
+.desktop-2 .flex-row-3 {
+  align-items: flex-end;
+  display: flex;
+  gap: 5px;
+  margin-top: -1px;
+  min-width: 532px;
+}
+
+.desktop-2 .search-1 {
+  height: 30px;
+  margin-bottom: 2px;
+  width: 30px;
+}
+
+.desktop-2 .x2017-hickory-dr-little-elm-tx {
+  background-color: transparent;
+  border: 0;
+  color: var(--navy-blue);
+  font-family: var(--font-family-georgia-regular);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  height: 41px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+  white-space: nowrap;
+  width: 497px;
+}
+
+.desktop-2 .x2017-hickory-dr-little-elm-tx::placeholder {
+  color: #197bc199;
+}
+
+.desktop-2 .line-2 {
+  width: 540px;
+}
+
+.desktop-2 .name {
+  color: transparent;
+  font-family: var(--font-family-georgia-regular);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  min-height: 41px;
+  white-space: nowrap;
+}
+
+.desktop-2 .span1 {
+  color: #ffc501;
+}
+
+.desktop-2 .flex-row-4 {
+  align-items: center;
+  display: flex;
+  margin-right: 12.0px;
+  margin-top: 67px;
+  min-width: 1228px;
+}
+
+.desktop-2 .more-option {
+  letter-spacing: 0;
+  line-height: 28px;
+  min-width: 102px;
+  white-space: nowrap;
+}
+
+.desktop-2 .vehicle {
+  align-items: center;
+  background-color: var(--alabaster);
+  border: 1px solid;
+  border-color: var(--athens-gray);
+  border-radius: 6px;
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  margin-left: 18px;
+  padding: 6px 10px;
+  position: relative;
+  width: 117px;
+}
+
+.desktop-2 .vehicle-1 {
+  color: var(--black);
+  flex: 1;
+  font-family: var(--font-family-gotham-book);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+}
+
+.desktop-2 .caret {
+  height: 6px;
+  position: relative;
+  width: 12px;
+}
+
+.desktop-2 .flex-row-item {
+  align-items: center;
+  background-color: var(--alabaster);
+  border: 1px solid;
+  border-color: var(--athens-gray);
+  border-radius: 6px;
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  margin-left: 24px;
+  padding: 6px 10px;
+  position: relative;
+  width: 117px;
+}
+
+.desktop-2 .option {
+  color: var(--black);
+  flex: 1;
+  font-family: var(--font-family-gotham-book);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 18.9px;
+  position: relative;
+}
+
+.desktop-2 .option-1 {
+  color: var(--black);
+  flex: 1;
+  font-weight: 400;
+  line-height: 18.9px;
+  position: relative;
+}
+
+.desktop-2 .cash {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-left: 27px;
+  margin-top: 6.0px;
+  position: relative;
+  width: 60px;
+}
+
+.desktop-2 .checkbox {
+  border: 2px solid;
+  border-color: #767676;
+  border-radius: 2px;
+  height: 20px;
+  position: relative;
+  width: 20px;
+}
+
+.desktop-2 .name-1 {
+  color: var(--black);
+  font-weight: 400;
+  line-height: 17.4px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .tag {
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+  margin-left: 24px;
+  margin-top: 6.0px;
+  position: relative;
+}
+
+.desktop-2 .checkbox-1 {
+  align-items: center;
+  background-color: var(--navy-blue);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 20px;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  width: 20px;
+}
+
+.desktop-2 .checkmark-icons {
+  height: 10.96px;
+  margin-bottom: -5.48px;
+  margin-left: -7.00px;
+  margin-right: -7.00px;
+  margin-top: -5.48px;
+  position: relative;
+  width: 14px;
+}
+
+.desktop-2 .tag-1 {
+  color: var(--black);
+  font-weight: 400;
+  line-height: 17.4px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .submit-search {
+  align-items: flex-start;
+  align-self: flex-end;
+  background-color: var(--navy-blue);
+  border-radius: 6px;
+  display: inline-flex;
+  gap: 10px;
+  margin-bottom: 2px;
+  margin-left: 18px;
+  padding: 8px 10px;
+  position: relative;
+}
+
+.desktop-2 .search-icons {
+  height: 13.28px;
+  margin-left: -0.75px;
+  margin-top: -0.75px;
+  position: relative;
+  width: 13.28px;
+}
+
+.desktop-2 .search-2 {
+  color: #ffffff;
+  font-family: var(--font-family-gotham-medium);
+  font-size: var(--font-size-xxs);
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .reset-button {
+  align-items: flex-start;
+  align-self: flex-end;
+  display: flex;
+  gap: 6px;
+  margin-left: 376px;
+  min-width: 69px;
+}
+
+.desktop-2 .reset {
+  color: var(--black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  min-height: 19px;
+  min-width: 43px;
+  white-space: nowrap;
+}
+
+.desktop-2 .reset-1 {
+  height: 20px;
+  width: 20px;
+}
+
+.desktop-2 .flex-row-5 {
+  align-items: flex-start;
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  min-width: 1240px;
+}
+
+.desktop-2 .map-section {
+  align-items: flex-start;
+  border: 1px solid;
+  border-color: var(--black);
+  border-radius: 6px;
+  display: flex;
+  height: 495px;
+  opacity: 0.5;
+  overflow: hidden;
+  width: 819px;
+}
+
+.desktop-2 .screenshot-2024-01-23-at-811-1 {
+  height: 498px;
+  margin-top: -3px;
+  object-fit: cover;
+  width: 826px;
+}
+
+.desktop-2 .result-details {
+  border: 1px solid;
+  border-color: #858b8e;
+  border-radius: 6px;
+  gap: 24px;
+  height: 495px;
+  overflow: hidden;
+  padding: 24px 16px;
+  position: relative;
+  width: 397px;
+}
+
+.desktop-2 .how-the-cost-is-calculated {
+  align-self: stretch;
+  color: var(--black);
+  font-family: var(--font-family-gotham-medium);
+  font-size: var(--font-size-l);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+}
+
+.desktop-2 .frame-1 {
+  gap: 12px;
+}
+
+.desktop-2 .frame-9 {
+  gap: 8px;
+}
+
+.desktop-2 .breakdown {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.desktop-2 .frame-19 {
+  gap: 4px;
+}
+
+.desktop-2 .frame {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.desktop-2 .gantry {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .fee {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .gantry-a {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .price {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .total {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .toll-facility {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.desktop-2 .te-xpress-lanes {
+  align-self: stretch;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+}
+
+.desktop-2 .operator {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.desktop-2 .lbj-infrastructure-g {
+  align-self: stretch;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+}
+
+.desktop-2 .learn-more {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.desktop-2 .unlike-other-toll-ro {
+  align-self: stretch;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+}
+
+.desktop-2 .frame-2 {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.desktop-2 .gantry-a-3 {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .line {
+  height: 1px;
+  object-fit: cover;
+}
+
+.desktop-2 .price-4 {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.desktop-2 .result {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
