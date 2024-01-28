@@ -1,6 +1,48 @@
 {
     "route": [
         {
+            "tollFacility": {
+                "name": "Dallas North Tollway N and FM 423 N"
+              },
+
+            "tollGantry": [
+                    {
+                        "lat": 32.813933,
+                        "lng": -96.817415,
+                        "name": "Wycliff Main Lane Gantry (MLP1)",
+                        "road": "Dallas North Tollway",
+                        "tagCost": 1.84,
+                        "cashCost": "None"
+                    },
+
+                    {
+                        "lat": 32.984867,
+                        "lng": -96.828588,
+                        "name": "Trinity Mills Main Lane Gantry (MLP2)",
+                        "road": "Dallas North Tollway",
+                        "tagCost": 1.32,
+                        "cashCost": "None"
+                    },
+
+                    {
+                        "lat": 33.03785,
+                        "lng": -96.829666,
+                        "name": "Parker Main Lane Gantry (MLP3)",
+                        "road": "Dallas North Tollway",
+                        "tagCost": 1.17,
+                        "cashCost": "None"
+                    },
+
+                    {
+                        "lat": 33.03785,
+                        "lng": -96.829666,
+                        "name": "Josey Lane - North (NJOLN)",
+                        "road": "Sam Rayburn Tollway",
+                        "tagCost": 0.85,
+                        "cashCost": "None"
+                    }
+                ],
+
             "origin": {
                 "origin_address": "1954 Commerce St, Dallas, TX 75201, USA",
                 "origin_lat": 32.7805795,

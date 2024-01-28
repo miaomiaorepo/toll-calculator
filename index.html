@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1280, maximum-scale=1.0" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="css/globals.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  </head>
+  <body style="margin: 0; background: #121212">
+    <div class="container-center-horizontal">
+      <div class="index screen">
+        <div class="address-section">
+          <div class="address-section-item">
+            <h1 class="title georgia-regular-normal-white-36px">Driving from</h1>
+            <div class="address">
+              <div class="flex-row">
+                <img class="icon-search" src="img/icon-search.svg" alt="Vector" />
+                <input id="input-origin" class="input georgia-regular-normal-white-36px" name="input" placeholder=" 1954 Commerce St, Dallas,TX " type="text" required />
+              </div>
+              <img class="line-2 line" src="img/line-2.svg" alt="Line 2" />
+            </div>
+          </div>
+          <div class="address-section-item">
+            <div class="to georgia-regular-normal-white-36px">to</div>
+            <div class="address-1">
+              <div class="flex-row-1">
+                <img class="icon-search" src="img/icon-search.svg" alt="Vector" />
+                <input
+                  id="input-destination"
+                  class="input georgia-regular-normal-white-36px"
+                  name="input"
+                  placeholder="2017 Hickory Dr Little Elm, TX"
+                  type="text"
+                  required
+                />
+              </div>
+              <img class="line-2 line" src="img/line-2.svg" alt="Line 2" />
+            </div>
+          </div>
+          <div class="cost">
+            <div class="name georgia-regular-normal-white-36px">may cost</div>
+            <img class="stack-of-money" src="img/stack-of-money@2x.png" alt="Stack of Money" />
+            <div class="price price-5"></div>
+            <div class="in-tolls georgia-regular-normal-white-36px">in tolls.</div>
+          </div>
+        </div>
+        <div class="parameters gotham-medium-white-14px">
+          <div class="options">
+            <div class="more-option">More Option</div>
+            <div class="dropdown dropdown-2">
+              <div class="state-layer">
+                <div class="label ">Vehicle</div>
+                <img class="icon" src="img/trailing-icon.svg" alt="Trailing icon" />
+                <div class="dropdown-menu">
+                  <a href="#">Car</a>
+                  <a href="#">Suv</a>
+                  <a href="#">Truck</a>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropdown-2">
+              <div class="state-layer">
+                <div class="label ">Date</div>
+                <img class="icon" src="img/trailing-icon.svg" alt="Trailing icon" />
+              </div>
+            </div>
+            <div class="dropdown dropdown-2">
+              <div class="state-layer">
+                <div class="label ">Time</div>
+                <img class="icon" src="img/trailing-icon-2.svg" alt="Trailing icon" />
+              </div>
+            </div>
+            <div class="checkbox">
+              <div class="container">
+                <input type="checkbox" class="checkbox-input">
+                <span class="checkmark"></span>
+                <div class="label-1 label-2">Cash</div>
+              </div>
+            </div>
+            <div class="checkbox">
+              <div class="container">
+                <input type="checkbox" class="checkbox-input">
+                <span class="checkmark"></span>
+                <div class="label-1 label-2">E-Tag</div>
+              </div>
+            </div>
+            <div class="button" id="search-button">
+              <div class="state-layer-1">
+                <img class="search-icon" src="img/search-icon.svg" alt="search-icon" />
+                <div class="label-text valign-text-middle label-2 gotham-medium-white-14px">Search</div>
+              </div>
+            </div>
+          </div>
+          <div class="reset-button">
+            <div class="reset">Reset</div>
+            <img class="icon" src="img/icon.svg" alt="icon" />
+          </div>
+        </div>
+        <div class="section-container">
+          <div class="map-section">
+            <div id="map" style="height: 100%; width: 100%;"></div>
+          </div>
+          <div class="result-section">
+            <p class="how-the-cost-is-calculated">How the cost is calculated</p>
+            <div class="x-section">
+              <div class="breakdown-title gotham-medium-white-14px">Breakdown</div>
+              <div class="breakdown-detail">
+                <div class="breakdown gotham-medium-white-16px">
+                  <div class="gantry-1">Gantry</div>
+                  <div class="fee">Fee</div>
+                </div>
+                <div class="breakdown-line gotham-book-normal-white-16px">
+                </div>
+              </div>
+            </div>
+            <div class="x-section">
+              <div class="toll-facility gotham-medium-white-14px">Toll Facility</div>
+              <div class="toll-name gotham-book-normal-white-16px"></div>
+            </div>
+            <div class="x-section">
+              <div class="operator gotham-medium-white-14px">Operator</div>
+              <p class="lbj-infrastructure-g gotham-book-normal-white-16px">
+                LBJ Infrastructure Group (LBJIG)<br />Texas Department of Transportation
+              </p>
+            </div>
+            <div class="learn-more-section">
+              <div class="learn-more gotham-medium-white-14px">Learn more</div>
+              <p class="unlike-other-toll-ro gotham-book-normal-white-16px">
+                Unlike other toll roads with fixed toll rates, prices on the TEXpress Lanes fluctuate based on real-time
+                traffic conditions and demand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/map-init.js"></script>
+    <script src="js/form-route.js"></script>
+    
+  </body>
+</html>
