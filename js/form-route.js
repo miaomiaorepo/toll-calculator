@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // collect the input from the address input field
+    //Get the input from the address input field
     var inputOrigin = document.getElementById('input-origin');
     var inputDestination = document.getElementById('input-destination');
 
@@ -56,20 +56,46 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+     // Forming JSON object
     var searchButton = document.getElementById('search-button');
-
+    var formData;
     searchButton.addEventListener('click', function() {
-
-        // Forming JSON object
-        var formData = {
-            originAddress: inputOrigin.value,
-            destinationAddress: inputDestination.value,
-            vehicle: vehicleType,
-            payment: paymentMethod
+        formData = {
+        originAddress: inputOrigin.value,
+        destinationAddress: inputDestination.value,
+        vehicle: vehicleType,
+        payment: paymentMethod
         };
-
         console.log('Form Data:', JSON.stringify(formData));
     });
+
+    // Reset the form
+    var resetDiv = document.querySelector('.reset-button');
+    resetDiv.addEventListener('click', function() {
+
+        // Reset functionality here
+        if (inputOrigin) {
+            inputOrigin.value = '';
+        }
+        if (inputDestination) {
+            inputDestination.value = '';
+        }
+
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+
+        vehicleType = '';
+        paymentMethod = '';
+
+            formData = {
+                originAddress: '',
+                destinationAddress: '',
+                vehicle: '',
+                payment: ''
+            };
+            console.log(formData);
+        });
 
 });
 
