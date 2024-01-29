@@ -1,12 +1,106 @@
 function initMap() {
-
-    fetch('routes.json')
-        .then(response => response.json())
+    getTollFee({ lat: 32.780540, lng: -96.794170 }, { lat: 33.172710, lng: -96.906230 }, { type: "2AxlesTaxi", axles: 2 })
         .then(data => {
-            const routeData = data.route[0]; 
+            const routeData = data.route[0];
             setupMapAndRoute(routeData);
         })
-        .catch(error => console.error('Error loading the JSON file:', error));
+        .catch(error => console.error('Error calling the API:', error));
+}
+
+function decode(encoded) {
+    var points = []
+    var index = 0, len = encoded.length;
+    var lat = 0, lng = 0;
+    while (index < len) {
+        var b, shift = 0, result = 0;
+        do {
+
+            b = encoded.charAt(index++).charCodeAt(0) - 63;//finds ascii                                                                                    //and substract it by 63
+            result |= (b & 0x1f) << shift;
+            shift += 5;
+        } while (b >= 0x20);
+
+
+        var dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+        lat += dlat;
+        shift = 0;
+        result = 0;
+        do {
+            b = encoded.charAt(index++).charCodeAt(0) - 63;
+            result |= (b & 0x1f) << shift;
+            shift += 5;
+        } while (b >= 0x20);
+        var dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+        lng += dlng;
+
+        points.push([(lng / 1E5), (lat / 1E5)])
+
+    }
+    return points
+}
+
+async function getTollFee(source, destination, vehicle) {
+    // Default options are marked with *
+    const API_END_POINT = "https://apis.tollguru.com/toll/v2/origin-destination-waypoints";
+    // const API_END_POINT = "https://apis.tollguru.com/v2/web-trial";
+    const API_KEY =  ;
+    const response = await fetch(API_END_POINT, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": API_KEY,
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(
+            {
+                "from": {
+                    "lat": source["lat"],
+                    "lng": source["lng"]
+                },
+                "to": {
+                    "lat": destination["lat"],
+                    "lng": destination["lng"]
+                },
+                "serviceProvider": "gmaps",
+                "vehicleType": "2AxlesAuto",
+                "vehicle": {
+                   "type": vehicle["type"],
+                   "axles": vehicle["axles"]
+                }
+            }
+        ),
+    });
+    const tollInfo = await response.json();
+    const route = tollInfo["summary"]["route"][0];
+    const originAddress = route["address"];
+    const originLat = route["location"]["lat"];
+    const originLng = route["location"]["lng"];
+    const destinationAddress = route["address"];
+    const destinationLat = route["location"]["lat"];
+    const destinationLng = route["location"]["lng"];
+    const decodedPolyline = decode(tollInfo["routes"][0]["polyline"])
+
+    const result = {
+        route: [
+            {
+                "origin": {
+                    "origin_address": originAddress,
+                    "origin_lat": originLat,
+                    "origin_lng": originLng
+                },
+                "destination": {
+                    "destination_address": destinationAddress,
+                    "destination_lat": destinationLat,
+                    "destination_lng": destinationLng
+                },
+                "polyline": decodedPolyline
+            },
+        ]
+    };
+    return result;
 }
 
 function setupMapAndRoute(routeData) {
@@ -33,7 +127,7 @@ function setupMapAndRoute(routeData) {
     const destinationMarker = L.marker([destination.destination_lat, destination.destination_lng]).addTo(map);
 
     // Set up the Toll Facility Name
-    const tollName = routeData.tollFacility['name'];
+    const tollName = routeData.tollFacility["name"];
     const tollNameElement = document.querySelector('.toll-name');
     if (tollNameElement) {
         tollNameElement.textContent = tollName;
