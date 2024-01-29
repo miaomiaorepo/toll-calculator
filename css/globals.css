@@ -291,12 +291,12 @@ input:focus {
 }
 
 .container:hover input ~ .checkmark {
-  background-color: #B7BFFF;
+  background-color: #63B3ED;
 }
 
 .container input:checked ~ .checkmark {
   background-color: #2196F3;
-  background-image: url('../img/icon-checked.svg'); 
+  background-image: url('../img/Checkbox.svg'); 
   background-size: cover; 
   background-repeat: no-repeat;
   background-position: center;
@@ -309,7 +309,7 @@ input:focus {
 
 .button {
   align-items: center;
-  background-color: #838ee55e;
+  background-color: #148EF4;
   border-radius: 8px;
   display: inline-flex;
   flex: 0 0 auto;
@@ -319,6 +319,11 @@ input:focus {
   position: relative;
 }
 
+.button:hover {
+  background-color: #63B3ED; 
+  cursor: pointer;
+}
+
 .state-layer-1 {
   align-items: center;
   align-self: stretch;
@@ -326,7 +331,7 @@ input:focus {
   flex: 0 0 auto;
   gap: 8px;
   justify-content: center;
-  padding: 6px 16px 6px 8px;
+  padding: 8px 16px 8px 16px;
   position: relative;
 }
 
@@ -343,6 +348,7 @@ input:focus {
   gap: 4px;
   padding: 2px;
   position: relative;
+  cursor: pointer;
 }
 
 .reset {

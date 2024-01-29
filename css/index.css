@@ -25,11 +25,6 @@
   font-weight: 700;
 }
 
-.index .dropdown-1 {
-  display: inline-flex;
-  flex: 0 0 auto;
-}
-
 .index .label {
   letter-spacing: 0;
   line-height: normal;
@@ -48,14 +43,9 @@
 }
 
 .index .label-text {
-  letter-spacing: 0.10px;
-  line-height: 20px;
+  letter-spacing: 0px;
   text-align: center;
   white-space: nowrap;
-}
-
-.index .price-1 {
-  margin-top: -1.00px;
 }
 
 .index .dropdown-2 {
@@ -68,8 +58,11 @@
   position: relative;
 }
 
+/* .dropdown-2 :hover {
+  background-color: #252525; 
+} */
 
-.state-layer .dropdown-menu {
+.dropdown-menu {
   display: none;
   position: absolute;
   background-color: #000000;
