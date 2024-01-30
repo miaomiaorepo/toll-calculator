@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=1280, maximum-scale=1.0" />
     <meta name="og:type" content="website" />
     <meta name="twitter:card" content="photo" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
     <link rel="stylesheet" type="text/css" href="css/globals.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
   </head>
   <body style="margin: 0; background: #121212">
     <div class="container-center-horizontal">
@@ -52,38 +53,34 @@
           <div class="options">
             <div class="more-option">More Option</div>
             <div class="dropdown dropdown-2">
-              <div class="state-layer">
+              <div class="state-layer" id="vehicle-trigger">
                 <div class="label ">Vehicle</div>
                 <img class="icon" src="img/trailing-icon.svg" alt="Trailing icon" />
-                <div class="dropdown-menu">
+                <div class="dropdown-menu" id="vehicle-menu">
                   <a href="#">Car</a>
                   <a href="#">Suv</a>
                   <a href="#">Truck</a>
                 </div>
               </div>
             </div>
-            <div class="dropdown dropdown-2">
-              <div class="state-layer">
-                <div class="label ">Date</div>
-                <img class="icon" src="img/trailing-icon.svg" alt="Trailing icon" />
-              </div>
-            </div>
-            <div class="dropdown dropdown-2">
-              <div class="state-layer">
-                <div class="label ">Time</div>
-                <img class="icon" src="img/trailing-icon-2.svg" alt="Trailing icon" />
+            <div class="dropdown-date">
+              <div class="state-layer" id="date-trigger">
+                <div class="dropdown-menu" id="date-menu">
+                  <input type="text" id="datePicker" placeholder="Select time">
+                  <img class="icon" src="img/trailing-icon.svg" id="iconClick" alt="Trailing icon" />
+                </div>
               </div>
             </div>
             <div class="checkbox">
               <div class="container">
-                <input type="checkbox" class="checkbox-input">
+                <input type="checkbox" class="checkbox-input" id="checkboxCash">
                 <span class="checkmark"></span>
                 <div class="label-1 label-2">Cash</div>
               </div>
             </div>
             <div class="checkbox">
               <div class="container">
-                <input type="checkbox" class="checkbox-input">
+                <input type="checkbox" class="checkbox-input" id="checkboxETag">
                 <span class="checkmark"></span>
                 <div class="label-1 label-2">E-Tag</div>
               </div>
@@ -139,6 +136,7 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>    
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="js/map-init.js"></script>
     <script src="js/form-route.js"></script>

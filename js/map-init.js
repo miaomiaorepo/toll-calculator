@@ -42,7 +42,6 @@ function decode(encoded) {
 async function getTollFee(source, destination, vehicle) {
     // Default options are marked with *
     const API_END_POINT = "https://apis.tollguru.com/toll/v2/origin-destination-waypoints";
-    // const API_END_POINT = "https://apis.tollguru.com/v2/web-trial";
     const API_KEY =  ;
     const response = await fetch(API_END_POINT, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -56,14 +55,8 @@ async function getTollFee(source, destination, vehicle) {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(
             {
-                "from": {
-                    "lat": source["lat"],
-                    "lng": source["lng"]
-                },
-                "to": {
-                    "lat": destination["lat"],
-                    "lng": destination["lng"]
-                },
+                "from": source,
+                "to": destination,
                 "serviceProvider": "gmaps",
                 "vehicleType": "2AxlesAuto",
                 "vehicle": {
@@ -74,18 +67,35 @@ async function getTollFee(source, destination, vehicle) {
         ),
     });
     const tollInfo = await response.json();
-    const route = tollInfo["summary"]["route"][0];
-    const originAddress = route["address"];
-    const originLat = route["location"]["lat"];
-    const originLng = route["location"]["lng"];
-    const destinationAddress = route["address"];
-    const destinationLat = route["location"]["lat"];
-    const destinationLng = route["location"]["lng"];
+    const route = tollInfo["summary"]["route"];
+    const originAddress = route[0]["address"];
+    const originLat = route[0]["location"]["lat"];
+    const originLng = route[0]["location"]["lng"];
+    const destinationAddress = route[1]["address"];
+    const destinationLat = route[1]["location"]["lat"];
+    const destinationLng = route[1]["location"]["lng"];
     const decodedPolyline = decode(tollInfo["routes"][0]["polyline"])
+    const roadName = tollInfo["routes"][0]["summary"]["name"];
+    const tolls = tollInfo['routes'][0]['tolls']
+
+    let tollGantry = [];
+    for (let i of tolls) {
+        let toll = {
+            name: i.name,
+            lat: i.lat,
+            lng: i.lng,
+            tagCost: i.tagCost,
+            cashCost: i.licensePlateCost
+        };
+        tollGantry.push(toll);
+    }
 
     const result = {
         route: [
             {
+                "tollFacility": {
+                    "name": roadName,
+                },
                 "origin": {
                     "origin_address": originAddress,
                     "origin_lat": originLat,
@@ -96,12 +106,25 @@ async function getTollFee(source, destination, vehicle) {
                     "destination_lat": destinationLat,
                     "destination_lng": destinationLng
                 },
+                'tollGantry': tollGantry,
                 "polyline": decodedPolyline
             },
         ]
     };
     return result;
 }
+
+
+const map = L.map('map');
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+let polyline = null;
+let originMarker = null;
+let destinationMarker = null;
 
 function setupMapAndRoute(routeData) {
 
@@ -110,21 +133,24 @@ function setupMapAndRoute(routeData) {
     const destination = routeData.destination;
     const polylinePoints = routeData.polyline;
 
-    const map = L.map('map').fitBounds([
+    map.fitBounds([
         [origin.origin_lat, origin.origin_lng],
         [destination.destination_lat, destination.destination_lng]
     ]);
 
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    
-    const polyline = L.polyline(polylinePoints.map(point => point.reverse()), {color: 'blue'}).addTo(map);
-    const originMarker = L.marker([origin.origin_lat, origin.origin_lng]).addTo(map);
-    const destinationMarker = L.marker([destination.destination_lat, destination.destination_lng]).addTo(map);
+    if (polyline) {
+        polyline.remove(map);
+    }
+    polyline = L.polyline(polylinePoints.map(point => point.reverse()), {color: 'blue'}).addTo(map);
+    if (originMarker) {
+        originMarker.remove(map);
+    }
+    originMarker = L.marker([origin.origin_lat, origin.origin_lng]).addTo(map);
+    if (destinationMarker) {
+        destinationMarker.remove(map);
+    }
+    destinationMarker = L.marker([destination.destination_lat, destination.destination_lng]).addTo(map);
 
     // Set up the Toll Facility Name
     const tollName = routeData.tollFacility["name"];
@@ -158,6 +184,7 @@ function setupMapAndRoute(routeData) {
 
     function generateGantryDivs(tollGantry) {
         const breakdownContainer = document.querySelector('.breakdown-line');
+        breakdownContainer.innerHTML = "";
         let totalCost = 0;
     
         tollGantry.forEach(gantry => {

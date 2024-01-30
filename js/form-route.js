@@ -5,30 +5,40 @@ document.addEventListener('DOMContentLoaded', function () {
     var originValue = '';
     var destinationValue = '';
 
-    var dropdownTrigger = document.querySelector('.state-layer');
-    var dropdownMenu = document.querySelector('.state-layer .dropdown-menu');
+    // Setup the vehicle dropdown
+    var vehicleTrigger = document.getElementById('vehicle-trigger');
+    var vehicleMenu = document.getElementById('vehicle-menu');
+    var vehicleLabel = vehicleTrigger.querySelector('.label');
 
-    // Toggle the dropdown on clicking the trigger
-    dropdownTrigger.addEventListener('click', function (event) {
-        dropdownMenu.classList.toggle('show');
+    vehicleTrigger.addEventListener('click', function (event) {
+        vehicleMenu.classList.toggle('show');
         event.stopPropagation(); // Prevents the document click event from firing
     });
 
-    // Event listener to record the value of the clicked item
-    var dropdownItems = dropdownMenu.querySelectorAll('a');
+    var dropdownItems = vehicleMenu.querySelectorAll('a');
     dropdownItems.forEach(function(item) {
         item.addEventListener('click', function() {
             vehicleType = this.textContent; 
-            dropdownMenu.classList.remove('show'); // Close the dropdown after selection
+            vehicleLabel.textContent = vehicleType ? vehicleType : 'Vehicle';
+            vehicleMenu.classList.remove('show'); // Close the dropdown after selection
             event.stopPropagation()
         });
     });
 
     // Close the dropdown if clicked outside
     document.addEventListener('click', function (event) {
-        if (!dropdownMenu.contains(event.target)) {
-            dropdownMenu.classList.remove('show');
+        if (!vehicleMenu.contains(event.target)) {
+            vehicleMenu.classList.remove('show');
         }
+    });
+
+    flatpickr('#datePicker', {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+    });
+
+    document.getElementById('iconClick').addEventListener('click', function() {
+        document.getElementById('datePicker').click();
     });
 
     //Get the input from the address input field
@@ -44,6 +54,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Get payment values
+
+    var checkboxCash = document.getElementById('checkboxCash');
+    var checkboxETag = document.getElementById('checkboxETag');
+
+    // Add event listeners to these checkboxes
+    checkboxCash.addEventListener('change', function() {
+        // Uncheck 'checkboxETag' if 'checkboxCash' is checked
+        if (this.checked) {
+            checkboxETag.checked = false;
+        }
+    });
+
+    checkboxETag.addEventListener('change', function() {
+        // Uncheck 'checkboxCash' if 'checkboxETag' is checked
+        if (this.checked) {
+            checkboxCash.checked = false;
+        }
+    });
+
     var checkboxes = document.querySelectorAll('.checkbox-input');
 
     checkboxes.forEach(function(checkbox) {
@@ -64,8 +93,16 @@ document.addEventListener('DOMContentLoaded', function () {
         originAddress: inputOrigin.value,
         destinationAddress: inputDestination.value,
         vehicle: vehicleType,
-        payment: paymentMethod
+        payment: paymentMethod,
+        Date: datePicker.value
         };
+
+    getTollFee({ address: inputOrigin.value }, { address: inputDestination.value }, { type: vehicleType || "2AxlesTaxi" })
+    .then(data => {
+        const routeData = data.route[0];
+        setupMapAndRoute(routeData);
+    })
+    .catch(error => console.error('Error calling the API:', error));
         console.log('Form Data:', JSON.stringify(formData));
     });
 
@@ -80,6 +117,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (inputDestination) {
             inputDestination.value = '';
         }
+        if (datePicker) {
+            datePicker.value = '';
+        }
+        
+        vehicleLabel.textContent = "Vehicle";
 
         checkboxes.forEach(function(checkbox) {
             checkbox.checked = false;
@@ -92,7 +134,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 originAddress: '',
                 destinationAddress: '',
                 vehicle: '',
-                payment: ''
+                payment: '',
+                Date: '',
+                Hour: '',
             };
             console.log(formData);
         });
