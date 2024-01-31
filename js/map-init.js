@@ -1,5 +1,5 @@
 function initMap() {
-    getTollFee({ lat: 32.780540, lng: -96.794170 }, { lat: 33.172710, lng: -96.906230 }, { type: "2AxlesTaxi", axles: 2 })
+    getTollFee({ lat: 32.780540, lng: -96.794170 }, { lat: 33.172710, lng: -96.906230 }, "2AxlesAuto", Math.round(Date.now() / 1000))
         .then(data => {
             const routeData = data.route[0];
             setupMapAndRoute(routeData);
@@ -39,7 +39,7 @@ function decode(encoded) {
     return points
 }
 
-async function getTollFee(source, destination, vehicle) {
+async function getTollFee(source, destination, vehicle, departureTime, payment) {
     // Default options are marked with *
     const API_END_POINT = "https://apis.tollguru.com/toll/v2/origin-destination-waypoints";
     const API_KEY =  ;
@@ -58,11 +58,10 @@ async function getTollFee(source, destination, vehicle) {
                 "from": source,
                 "to": destination,
                 "serviceProvider": "gmaps",
-                "vehicleType": "2AxlesAuto",
                 "vehicle": {
-                   "type": vehicle["type"],
-                   "axles": vehicle["axles"]
-                }
+                   "type": vehicle,
+                },
+                "departure_time": departureTime
             }
         ),
     });
@@ -107,7 +106,8 @@ async function getTollFee(source, destination, vehicle) {
                     "destination_lng": destinationLng
                 },
                 'tollGantry': tollGantry,
-                "polyline": decodedPolyline
+                "polyline": decodedPolyline,
+                'paymentMethod': payment
             },
         ]
     };
@@ -161,7 +161,7 @@ function setupMapAndRoute(routeData) {
 
     // Generate toll gantry list
     if (routeData.tollGantry) {
-        generateGantryDivs(routeData.tollGantry);
+        generateGantryDivs(routeData.tollGantry, routeData.paymentMethod);
     }
     
     // Add animation to the total cost
@@ -181,15 +181,20 @@ function setupMapAndRoute(routeData) {
             }
         }, stepTime);
     }
-
-    function generateGantryDivs(tollGantry) {
+    // Generate the toll gantry and cost breakdown
+    function generateGantryDivs(tollGantry, payment) {
         const breakdownContainer = document.querySelector('.breakdown-line');
         breakdownContainer.innerHTML = "";
+
         let totalCost = 0;
     
         tollGantry.forEach(gantry => {
 
-            totalCost += gantry.tagCost;
+            if (payment === 'E-Tag') {
+                totalCost += gantry.tagCost;
+            } else { // by default, use cash cost
+                totalCost += gantry.cashCost;
+            }
 
             const breakdownDiv = document.createElement('div');
             breakdownDiv.className = 'breakdown';
@@ -200,7 +205,7 @@ function setupMapAndRoute(routeData) {
     
             const priceDiv = document.createElement('div');
             priceDiv.className = 'price-1 price-5';
-            priceDiv.textContent = `$${gantry.tagCost.toFixed(2)}`;
+            priceDiv.textContent = `$${(payment === 'E-Tag' ? gantry.tagCost : gantry.cashCost).toFixed(2)}`;
     
             breakdownDiv.appendChild(gantryNameDiv);
             breakdownDiv.appendChild(priceDiv);
@@ -220,7 +225,7 @@ function setupMapAndRoute(routeData) {
 
         const totalPriceDiv = document.createElement('div');
         totalPriceDiv.className = 'price-1 price-5';
-        totalPriceDiv.textContent = `$${totalCost.toFixed(2)}`;
+        totalPriceDiv.textContent = `$${totalCost.toFixed(2)}`;;
         totalDiv.appendChild(totalPriceDiv);
 
         breakdownContainer.appendChild(totalDiv);
