@@ -4,11 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var paymentMethod = '';
     var originValue = '';
     var destinationValue = '';
+    var axleValue = '';
+    var vehicleValue = '';
 
     // Setup the vehicle dropdown
     var vehicleTrigger = document.getElementById('vehicle-trigger');
     var vehicleMenu = document.getElementById('vehicle-menu');
     var vehicleLabel = vehicleTrigger.querySelector('.label');
+    var vehicleInput = '';
 
     vehicleTrigger.addEventListener('click', function (event) {
         vehicleMenu.classList.toggle('show');
@@ -18,20 +21,57 @@ document.addEventListener('DOMContentLoaded', function () {
     var dropdownItems = vehicleMenu.querySelectorAll('a');
     dropdownItems.forEach(function(item) {
         item.addEventListener('click', function() {
-            vehicleType = this.textContent; 
-            vehicleLabel.textContent = vehicleType ? vehicleType : 'Vehicle';
-            vehicleMenu.classList.remove('show'); // Close the dropdown after selection
+            vehicleInput = this.textContent; 
+            vehicleLabel.textContent = vehicleInput ? vehicleInput : 'Vehicle';
+            vehicleMenu.classList.remove('show'); 
+
+            // Select vehicleValue 
+            if (vehicleInput === "Car, Pickup truck") {
+                vehicleValue = "Auto";
+            } else {
+                vehicleValue = vehicleInput;
+            }     
             event.stopPropagation()
         });
     });
 
-    // Close the dropdown if clicked outside
     document.addEventListener('click', function (event) {
         if (!vehicleMenu.contains(event.target)) {
             vehicleMenu.classList.remove('show');
         }
     });
 
+    // Set up the axle
+    var axleTrigger = document.getElementById('axle-trigger');
+    var axleMenu = document.getElementById('axle-menu');
+    var axleLabel = axleTrigger.querySelector('.label');
+    var axleinput = '';
+
+    axleTrigger.addEventListener('click', function (event) {
+        axleMenu.classList.toggle('show');
+        event.stopPropagation(); 
+    });
+
+    var axleItems = axleMenu.querySelectorAll('a');
+    axleItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            axleInput = this.textContent; 
+            axleLabel.textContent = axleInput ? axleInput : 'Axles';
+            //select axleValue
+            axleValue = axleInput.replace(/\s+/g, '');
+
+            axleMenu.classList.remove('show'); // Close the dropdown after selection
+            event.stopPropagation()
+        });
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!axleMenu.contains(event.target)) {
+            axleMenu.classList.remove('show');
+        }
+    });
+
+    // Setup the date picker
     flatpickr('#datePicker', {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
@@ -58,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var checkboxCash = document.getElementById('checkboxCash');
     var checkboxETag = document.getElementById('checkboxETag');
 
-    // Add event listeners to these checkboxes
+    // Only allow one checkbox to be checked at a time
     checkboxCash.addEventListener('change', function() {
         // Uncheck 'checkboxETag' if 'checkboxCash' is checked
         if (this.checked) {
@@ -85,19 +125,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-     // Forming JSON object
+     // Forming JSON object;
     var searchButton = document.getElementById('search-button');
     var formData;
     searchButton.addEventListener('click', function() {
+
+        vehicleType = axleValue + vehicleValue
+
         formData = {
         originAddress: inputOrigin.value,
         destinationAddress: inputDestination.value,
         vehicle: vehicleType,
         payment: paymentMethod,
-        Date: datePicker.value
+        departureTime: datePicker.value ? new Date(datePicker.value).getTime() : Math.round(Date.now() / 1000)
         };
 
-    getTollFee({ address: inputOrigin.value }, { address: inputDestination.value }, { type: vehicleType || "2AxlesTaxi" })
+        // Call the API
+    getTollFee({ address: inputOrigin.value }, 
+        { address: inputDestination.value }, 
+        vehicleType || "2AxlesAuto",
+        datePicker.value ? Math.round(new Date(datePicker.value).getTime() / 1000) : Math.round(Date.now() / 1000),
+        paymentMethod || "cash")
+
     .then(data => {
         const routeData = data.route[0];
         setupMapAndRoute(routeData);
@@ -120,25 +169,36 @@ document.addEventListener('DOMContentLoaded', function () {
         if (datePicker) {
             datePicker.value = '';
         }
+
+        const priceDiv = document.querySelector('.price.price-5');
+        if (priceDiv) {
+            priceDiv.textContent = '$0.00';
+        }
         
-        vehicleLabel.textContent = "Vehicle";
+        vehicleLabel.textContent = "Vehicle Type";
+        axleLabel.textContent = "Axles";
 
         checkboxes.forEach(function(checkbox) {
             checkbox.checked = false;
         });
 
-        vehicleType = '';
+        vehicleInput = '';
+        vehicleValue = '';
+        axleInput = '';
+        axleValue = '';
         paymentMethod = '';
 
-            formData = {
-                originAddress: '',
-                destinationAddress: '',
-                vehicle: '',
-                payment: '',
-                Date: '',
-                Hour: '',
-            };
-            console.log(formData);
+        formData = {
+            originAddress: '',
+            destinationAddress: '',
+            vehicle: '',
+            payment: '',
+            departureTime: ''
+        };
+
+        //back to the default map
+        initMap()
+
         });
 
 });
